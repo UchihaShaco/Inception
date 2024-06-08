@@ -1,11 +1,24 @@
-all: build
+composeLoc = --project-directory ./srcs
 
-build:
-    docker-compose build
+all: up
 
-up:
-    docker-compose up -d
+up: 
+	sudo docker compose ${composeLoc} up -d
 
-down:
-    docker-compose down
+down: 
+	sudo docker compose ${composeLoc} down
 
+start: 
+	sudo docker compose ${composeLoc} start
+
+stop: 
+	sudo docker compose ${composeLoc} stop
+
+restart:
+	sudo docker compose ${composeLoc} restart
+
+re: down
+	sudo docker compose ${composeLoc} up --build -d
+
+ps: 
+	sudo docker ps
