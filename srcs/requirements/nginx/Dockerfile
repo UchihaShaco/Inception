@@ -1,18 +1,12 @@
-FROM debian:buster
+FROM debian:bullseye
 
-RUN apt update
+RUN apt-get update && apt-get install -y \
+	nginx \
+	openssl && \
+	rm -rf /var/lib/apt/lists/*
 
-RUN apt install -y nginx openssl
-
+COPY ./conf/nginx.conf /tmp/nginx.conf
 
 COPY ./tools/ngin.sh /
 
-RUN chmod +x /ngin.sh
-
-RUN /ngin.sh
-
-COPY index.html /usr/share/nginx/html
-
-COPY ./conf/nginx.conf /etc/nginx/sites-available/default
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["bash", "/ngin.sh"]
