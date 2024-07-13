@@ -14,3 +14,4 @@ EXPOSE 3306
 RUN chmod +x mariadb.sh
 
 CMD ["./mariadb.sh"]
+# CMD ["sleep", "999999999"]

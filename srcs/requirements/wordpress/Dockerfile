@@ -28,3 +28,4 @@ RUN chmod +x /var/www/wordpress/config.sh
 
 ENTRYPOINT ["bash", "/var/www/wordpress/config.sh"]
 
+# CMD ["sleep", "999999999"]

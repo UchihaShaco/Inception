@@ -17,7 +17,7 @@ services:
             - mariadb
         build: ./requirements/wordpress
         container_name: wordpress
-        restart: always
+        restart: on-failure
         volumes:
             - wp:/var/www/wordpress
         env_file:
@@ -28,7 +28,7 @@ services:
     mariadb:
         container_name: mariadb
         build: ./requirements/mariadb
-        restart: always
+        restart: on-failure
         env_file: .env
         volumes:
             - db:/var/lib/mysql
@@ -42,7 +42,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/wp
+      device: /home/${USER}/Inception/data/wp
  
   db:
     name: db
@@ -50,7 +50,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/${USER}/data/db
+      device: /home/${USER}/Inception/data/db
 
 networks:
   web:

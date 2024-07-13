@@ -1,24 +1,29 @@
-composeLoc = --project-directory ./srcs
+all: build up
 
-all: up
+up:
+	cd srcs && docker compose up -d
 
-up: 
-	sudo docker compose ${composeLoc} up -d
+down:
+	cd srcs && docker compose down
 
-down: 
-	sudo docker compose ${composeLoc} down
+build:
+	if [ ! -d "/home/${USER}/Inception/data" ]; then \
+		mkdir -p "/home/${USER}/Inception/data/wp" \
+		mkdir -p "/home/${USER}/Inception/data/db"; \
+	fi
+	cd srcs && docker compose build
 
-start: 
-	sudo docker compose ${composeLoc} start
+logs:
+	cd srcs && docker compose logs -f
 
-stop: 
-	sudo docker compose ${composeLoc} stop
+remove_volumes:
+	docker volume rm $$(docker volume ls -q)
+	sudo rm -rf /home/${USER}/Inception/data
 
-restart:
-	sudo docker compose ${composeLoc} restart
+fclean: down remove_volumes
+	docker system prune --all --force
+	@if [ ! -z "$(docker images -q)" ]; then \
+		docker rmi -f $$(docker images -q); \
+	fi
 
-re: down
-	sudo docker compose ${composeLoc} up --build -d
-
-ps: 
-	sudo docker ps
+re: fclean all

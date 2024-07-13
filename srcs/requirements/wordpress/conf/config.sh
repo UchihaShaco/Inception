@@ -1,8 +1,7 @@
 #! /bin/bash
 cd /var/www/wordpress
 
-wp core download --force --allow-root
-
+# wp core download --force --allow-root
 
 wp config create --path=/var/www/wordpress --dbname=$DB_NAME  --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --allow-root --dbprefix=wp_
 

@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install -y \
 	openssl && \
 	rm -rf /var/lib/apt/lists/*
 
-COPY ./conf/nginx.conf /tmp/nginx.conf
+COPY ./conf/nginx.conf /conf/nginx.conf
 
 COPY ./tools/ngin.sh /
 
